@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#SEED - The Only Way to Recover Your Seed Phrase</title>
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --secondary: #00d395;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f1a;
+            color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .hero {
+            padding: 120px 0;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #b8b8d4;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .button {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .primary-button {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+        }
+        
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+        }
+        
+        .secondary-button:hover {
+            background: rgba(108, 99, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .features {
+            padding: 100px 0;
+            background-color: #14152b;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: var(--light);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .feature-description {
+            color: #b8b8d4;
+            line-height: 1.6;
+        }
+        
+        .tokenomics {
+            padding: 100px 0;
+            background-color: #0f0f1a;
+        }
+        
+        .supply-info {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .supply-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .supply-label {
+            font-size: 18px;
+            color: #b8b8d4;
+            margin-bottom: 30px;
+        }
+        
+        .requirement-note {
+            background-color: rgba(0, 211, 149, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .dapp-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+            text-align: center;
+        }
+        
+        .dapp-preview {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .preview-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .preview-description {
+            color: #b8b8d4;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .preview-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer {
+            background-color: #0a0a14;
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-column h3 {
+            color: var(--light);
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #b8b8d4;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: #6c757d;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .button {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo"><span>#</span>SEED</div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#tokenomics">Tokenomics</a>
+                    <a href="#verify">Verification</a>
+                    <a href="#dapp">dApp</a>
+                    <a href="#buy" class="button primary-button">Buy $SEED</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>The Only Way to Recover Your Seed Phrase</h1>
+            <p class="subtitle">Revolutionary blockchain solution that ensures you never lose access to your crypto assets again. #SEED protects your future by securing your most valuable crypto possession - your seed phrase.</p>
+            <div class="cta-buttons">
+                <a href="#buy" class="button primary-button">Buy $SEED</a>
+                <a href="#dapp" class="button secondary-button">Launch dApp</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose #SEED</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Military-Grade Encryption</h3>
+                    <p class="feature-description">Your seed phrase is encrypted using advanced algorithms that even quantum computers can't break.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Decentralized Recovery</h3>
+                    <p class="feature-description">No central authority holds your keys. Our unique blockchain protocol ensures only you can access your seed phrase.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title">Multi-Chain Support</h3>
+                    <p class="feature-description">Compatible with Ethereum, Solana, Binance Smart Chain, and all major blockchains.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tokenomics" id="tokenomics">
+        <div class="container">
+            <h2 class="section-title">Tokenomics</h2>
+            <div class="supply-info">
+                <div class="supply-value">100,000,000</div>
+                <div class="supply-label">Total $SEED Supply</div>
+                
+                <div class="requirement-note">
+                    <strong>dApp Access Requirement:</strong> You need to hold at least 0.2% of the total supply (200,000 $SEED tokens) to use the recovery dApp. This requirement ensures commitment to the ecosystem and helps maintain the security of our protocol.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works" style="padding: 100px 0; background-color: #14152b;">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Connect Your Wallet</h3>
+                    <p class="feature-description">First, connect your wallet to verify you hold the required 0.2% of $SEED tokens.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">Prove Ownership</h3>
+                    <p class="feature-description">Submit transaction proof that you funded the wallet in question from a verified DEX or CEX account.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🪪</div>
+                    <h3 class="feature-title">Complete ID Verification</h3>
+                    <p class="feature-description">Submit your government-issued ID for KYC verification to prevent fraudulent recovery attempts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3 class="feature-title">Secure Recovery</h3>
+                    <p class="feature-description">Once verified, our system will securely provide access to your backed-up seed phrase.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#verify" class="button secondary-button">Start Verification Process</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="verification-section" id="verify" style="padding: 100px 0; background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);">
+        <div class="container">
+            <h2 class="section-title">ID Verification</h2>
+            <div class="dapp-preview">
+                <h3 class="preview-title">Secure KYC Portal</h3>
+                <p class="preview-description">Complete your verification with our trusted KYC partners to gain access to your seed phrase recovery.</p>
+                
+                <div style="max-width: 600px; margin: 40px auto; padding: 30px; background: rgba(15, 15, 26, 0.7); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <form style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: #b8b8d4; text-align: left;">Full Name (as on ID)</label>
+                            <input type="text" placeholder="Enter your full name" style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(26, 26, 46, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: #f8f9fa;">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: #b8b8d4; text-align: left;">ID Number</label>
+                            <input type="text" placeholder="Enter your ID number" style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(26, 26, 46, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: #f8f9fa;">
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: #b8b8d4; text-align: left;">Country of Issue</label>
+                            <select style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(26, 26, 46, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); color: #f8f9fa;">
+                                <option value="">Select your country</option>
+                                <option value="us">United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="ca">Canada</option>
+                                <option value="au">Australia</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: #b8b8d4; text-align: left;">Upload ID (Front)</label>
+                            <div style="border: 2px dashed rgba(255, 255, 255, 0.2); padding: 30px; border-radius: 8px; text-align: center; cursor: pointer;">
+                                <p style="margin: 0; color: #b8b8d4;">Click to upload or drag and drop</p>
+                                <p style="margin: 5px 0 0; font-size: 12px; color: #6c757d;">Supported formats: JPG, PNG, PDF</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: #b8b8d4; text-align: left;">Upload ID (Back)</label>
+                            <div style="border: 2px dashed rgba(255, 255, 255, 0.2); padding: 30px; border-radius: 8px; text-align: center; cursor: pointer;">
+                                <p style="margin: 0; color: #b8b8d4;">Click to upload or drag and drop</p>
+                                <p style="margin: 5px 0 0; font-size: 12px; color: #6c757d;">Supported formats: JPG, PNG, PDF</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: #b8b8d4; text-align: left;">DEX/CEX Proof of Ownership</label>
+                            <div style="border: 2px dashed rgba(255, 255, 255, 0.2); padding: 30px; border-radius: 8px; text-align: center; cursor: pointer;">
+                                <p style="margin: 0; color: #b8b8d4;">Upload transaction proof</p>
+                                <p style="margin: 5px 0 0; font-size: 12px; color: #6c757d;">Supported formats: JPG, PNG, PDF, CSV</p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <button class="button primary-button" style="width: 100%;">Submit Verification</button>
+                        </div>
+                        
+                        <p style="font-size: 12px; color: #6c757d; text-align: center; margin-top: 10px;">
+                            By submitting this form, you agree to our <a href="#" style="color: var(--primary);">Terms of Service</a> and <a href="#" style="color: var(--primary);">Privacy Policy</a>
+                        </p>
+                    </form>
+                </div>
+                
+                <div style="background-color: rgba(108, 99, 255, 0.1); border-left: 4px solid var(--primary); padding: 20px; border-radius: 8px; text-align: left; margin-top: 30px;">
+                    <strong style="color: var(--light);">Security Note:</strong>
+                    <p style="color: #b8b8d4; margin-top: 10px; margin-bottom: 0;">All verification data is encrypted and securely stored using our proprietary blockchain technology. Your information is never shared with third parties and is used solely for the purpose of seed phrase recovery verification.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dapp-section" id="dapp">
+        <div class="container">
+            <h2 class="section-title">Our dApp</h2>
+            <div class="dapp-preview">
+                <h3 class="preview-title">Secure Seed Recovery Portal</h3>
+                <p class="preview-description">Our intuitive interface makes it easy to store and recover your seed phrases while maintaining maximum security.</p>
+                <img src="/api/placeholder/800/500" alt="SEED dApp Interface Preview" class="preview-image">
+                <a href="#" class="button primary-button">Launch dApp</a>
+                <p style="margin-top: 20px; color: #b8b8d4; font-size: 14px;">*Requires holding 0.2% of $SEED supply</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="buy-section" id="buy">
+        <div class="container">
+            <h2 class="section-title">How to Buy $SEED</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">1️⃣</div>
+                    <h3 class="feature-title">Connect Wallet</h3>
+                    <p class="feature-description">Connect your MetaMask, Phantom or any other Web3 wallet to our platform.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">2️⃣</div>
+                    <h3 class="feature-title">Swap for $SEED</h3>
+                    <p class="feature-description">Use our built-in swap interface to exchange ETH, SOL or other tokens for $SEED.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">3️⃣</div>
+                    <h3 class="feature-title">Start Using dApp</h3>
+                    <p class="feature-description">Once you hold sufficient $SEED tokens, you can start using our recovery platform.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="#" class="button primary-button">Buy $SEED Now</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo"><span>#</span>SEED</div>
+                    <p style="color: #b8b8d4; margin-top: 20px;">The future of seed phrase recovery on the blockchain.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="#">Token Contract</a></li>
+                        <li><a href="#">Audit Report</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="https://x.com/SEEDprotocol" class="social-icon">𝕏</a>
+                        <a href="#" class="social-icon">TG</a>
+                        <a href="#" class="social-icon">DC</a>
+                        <a href="#" class="social-icon">GH</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 #SEED Protocol. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
